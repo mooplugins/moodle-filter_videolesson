@@ -31,7 +31,7 @@ Without this filter enabled, embedded Video Lesson references may not render cor
 
 ## Requirements
 
-- Moodle 4.1 or higher (adjust if needed)
+- Moodle 4.1 or higher
 - `mod_videolesson` installed
 
 ---
