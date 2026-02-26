@@ -64,6 +64,13 @@ Ensure the activity module is installed and configured before enabling this filt
 
 ---
 
+## Documentation
+
+For installation, configuration, and usage guides, see:
+https://www.mooplugins.com/docs-category/video-lesson-activity/
+
+---
+
 ## Versioning
 
 Releases follow Moodle versioning conventions.
