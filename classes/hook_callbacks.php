@@ -35,7 +35,7 @@ class hook_callbacks {
     ): void {
         global $CFG;
 
-        // Support both old and new filter names for backward compatibility
+        // Support both old and new filter names for backward compatibility.
         if (!filter_is_enabled('videolesson') && !filter_is_enabled('videoaws')) {
             return;
         }
@@ -78,15 +78,15 @@ class hook_callbacks {
 
         global $PAGE;
 
-        // Support both old and new filter names for backward compatibility
+        // Support both old and new filter names for backward compatibility.
         if (!filter_is_enabled('videolesson') && !filter_is_enabled('videoaws')) {
             return;
         }
 
-        // Require the AMD module
+        // Require the AMD module.
         $PAGE->requires->js_call_amd('filter_videolesson/player', 'init');
 
-        // Return null since we're not outputting custom HTML
+        // Return null since we're not outputting custom HTML.
         return;
     }
 

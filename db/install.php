@@ -23,8 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Enable filter by default to render Video Lesson Player.
  * @throws coding_exception
@@ -32,9 +30,9 @@ defined('MOODLE_INTERNAL') || die();
 function xmldb_filter_videolesson_install() {
     global $CFG;
     require_once("$CFG->libdir/filterlib.php");
-    // Enable the new filter name
+    // Enable the new filter name.
     filter_set_global_state('videolesson', TEXTFILTER_ON);
-    // Also enable old filter name if it exists (for backward compatibility during migration)
+    // Also enable old filter name if it exists (for backward compatibility during migration).
     if (filter_get_active_state('videoaws') !== TEXTFILTER_DISABLED) {
         filter_set_global_state('videoaws', TEXTFILTER_ON);
     }

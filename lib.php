@@ -24,10 +24,13 @@
 
 if ($CFG->branch < 405) {
 
+    /**
+     * Filter Video Lesson before standard HTML head.
+     */
     function filter_videolesson_before_standard_html_head() {
         global $CFG;
 
-        // Support both old and new filter names for backward compatibility
+        // Support both old and new filter names for backward compatibility.
         if (!filter_is_enabled('videolesson') && !filter_is_enabled('videoaws')) {
             return;
         }
@@ -60,9 +63,12 @@ if ($CFG->branch < 405) {
         return $output;
     }
 
+    /**
+     * Filter Video Lesson before standard HTML footer.
+     */
     function filter_videolesson_before_footer() {
         global $PAGE;
-        // Support both old and new filter names for backward compatibility
+        // Support both old and new filter names for backward compatibility.
         if (!filter_is_enabled('videolesson') && !filter_is_enabled('videoaws')) {
             return;
         }

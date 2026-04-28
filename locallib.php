@@ -22,49 +22,60 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function filter_videolesson_generate_player($text, array $options = []){
+/**
+ * Generate the HTML for rendering the video player.
+ *
+ * @param string $text The text to process.
+ * @param array $options The options to pass to the filter.
+ * @return string The HTML for rendering the video player.
+ */
+function filter_videolesson_generate_player($text, array $options = []) {
     global $PAGE;
-    //return $text;
-    // Check if filter is enabled (support both old and new filter names for backward compatibility)
+
+    // Check if filter is enabled (support both old and new filter names for backward compatibility).
     if (!filter_is_enabled('videolesson') && !filter_is_enabled('videoaws')) {
         return $text;
     }
 
-    // Process video player tags - support both [videoaws...] and [videolesson...] for backward compatibility
-    $has_video_tags = (strpos($text, '[videoaws') !== false) || (strpos($text, '[videolesson') !== false);
+    // Process video player tags - support both [videoaws...] and [videolesson...] for backward compatibility.
+    $hasvideotags = (strpos($text, '[videoaws') !== false) || (strpos($text, '[videolesson') !== false);
 
-    if ($has_video_tags) {
-        // Process both old [videoaws...] and new [videolesson...] patterns
+    if ($hasvideotags) {
+        // Process both old [videoaws...] and new [videolesson...] patterns.
         $patterns = [
-            '/\[videoaws(?: title="([^"]+)")? hash="([a-f0-9]{40})"\]/',  // Backward compatibility
-            '/\[videolesson(?: title="([^"]+)")? hash="([a-f0-9]{40})"\]/'  // New syntax
+            '/\[videoaws(?: title="([^"]+)")? hash="([a-f0-9]{40})"\]/', // Backward compatibility.
+            '/\[videolesson(?: title="([^"]+)")? hash="([a-f0-9]{40})"\]/', // New syntax.
         ];
 
         foreach ($patterns as $pattern) {
             $text = preg_replace_callback(
                 $pattern,
                 function ($matches) use ($PAGE) {
-                    $title = isset($matches[1]) ? $matches[1] : null; // Handle missing title
+                    // Handle missing title.
+                    $title = isset($matches[1]) ? $matches[1] : null;
                     $hash = $matches[2];
-                    $video_source = new \mod_videolesson\videosource();
-                    $video_data = $video_source->get_video_data(
+                    $videosource = new \mod_videolesson\videosource();
+                    $videodata = $videosource->get_video_data(
                         $hash
                     );
 
                     $subs = '';
-                    foreach ($video_data['subtitles'] as $subtitle){
-                        $subs .= '<track kind="subtitles" label="'.$subtitle['language'].'" srclang="'.$subtitle['code'].'" src="'.$subtitle['url'].'">';
+                    foreach ($videodata['subtitles'] as $subtitle) {
+                        $subs .= '<track kind="subtitles" label="' . $subtitle['language'] . '"'
+                            . ' srclang="' . $subtitle['code'] . '" src="' . $subtitle['url'] . '">';
                     }
 
-                    // Generate the HTML for rendering
-                    return '<div id="player-placeholder-'.$hash.'">
-                            <div class="bg-pulse-grey my-2" style="height: 200px;width: 100%; border-radius: 10px;"></div>
-                        </div>
-                        <div id="player-container-div-'.$hash.'" class="d-none">
-                            <video id="player-'.$hash.'" data-hash="'.$hash.'" data-source="'.$video_data['sourceurl'].'" playsinline controls>'.$subs.'</video>
-                        </div>
-                        ';
-                }, $text);
+                    // Generate the HTML for rendering.
+                    return '<div id="player-placeholder-' . $hash . '">'
+                        . '<div class="bg-pulse-grey my-2" style="height: 200px;width: 100%; border-radius: 10px;"></div>'
+                        . '</div>'
+                        . '<div id="player-container-div-' . $hash . '" class="d-none">'
+                        . '<video id="player-' . $hash . '" data-hash="' . $hash . '" data-source="'
+                        . $videodata['sourceurl'] . '" playsinline controls>' . $subs . '</video>'
+                        . '</div>';
+                },
+                $text
+            );
         }
     }
 

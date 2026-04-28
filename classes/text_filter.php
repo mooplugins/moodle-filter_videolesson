@@ -13,10 +13,18 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Display Video Lesson filter
+ *
+ * @package    filter_videolesson
+ * @author     BitKea Technologies LLP
+ * @copyright  2024 BitKea Technologies LLP (https://www.bitkea.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace filter_videolesson;
 
-defined('MOODLE_INTERNAL') || die;
-require_once($CFG->dirroot . '/filter/videolesson/locallib.php');
 /**
  * Display Video Lesson filter
  *
@@ -33,9 +41,9 @@ class text_filter extends \core_filters\text_filter {
      * @param  array  $options options passed to the filters
      * @return string
      */
-
-    function filter($text, array $options = []) {
+    public function filter($text, array $options = []) {
+        global $CFG;
+        require_once($CFG->dirroot . '/filter/videolesson/locallib.php');
         return filter_videolesson_generate_player($text, $options);
     }
-
 }

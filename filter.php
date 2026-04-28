@@ -23,10 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
-
 if ($CFG->branch < 405) {
-    require_once($CFG->dirroot . '/filter/videolesson/locallib.php');
     /**
      * Display Video Lesson filter
      *
@@ -42,8 +39,9 @@ if ($CFG->branch < 405) {
          * @param  array  $options options passed to the filters
          * @return string
          */
-
-        function filter($text, array $options = []) {
+        public function filter($text, array $options = []) {
+            global $CFG;
+            require_once($CFG->dirroot . '/filter/videolesson/locallib.php');
             return filter_videolesson_generate_player($text, $options);
         }
     }

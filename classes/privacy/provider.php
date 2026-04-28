@@ -25,8 +25,6 @@
 
 namespace filter_videolesson\privacy;
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * Privacy Subsystem for filter_videolesson implementing null_provider.
  *

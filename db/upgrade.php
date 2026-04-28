@@ -23,8 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * xmldb_filter_videolesson_upgrade
  *
@@ -32,6 +30,5 @@ defined('MOODLE_INTERNAL') || die();
  * @return bool result
  */
 function xmldb_filter_videolesson_upgrade($oldversion) {
-    global $CFG;
     return true;
 }
