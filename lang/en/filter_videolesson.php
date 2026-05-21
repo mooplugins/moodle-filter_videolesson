@@ -25,4 +25,5 @@
 
 defined('MOODLE_INTERNAL') || die;
 $string['filtername'] = 'Display Video Lesson';
+$string['pluginname'] = 'Filter Video Lesson';
 $string['privacy:metadata'] = 'The display Video Lesson filter does not store any personal data.';
