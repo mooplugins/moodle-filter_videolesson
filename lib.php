@@ -22,56 +22,35 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-if ($CFG->branch < 405) {
-
-    /**
-     * Filter Video Lesson before standard HTML head.
-     */
-    function filter_videolesson_before_standard_html_head() {
-        global $CFG;
-
-        // Support both old and new filter names for backward compatibility.
-        if (!filter_is_enabled('videolesson') && !filter_is_enabled('videoaws')) {
-            return;
-        }
-
-        $lib = $CFG->dirroot . '/mod/videolesson/lib.php';
-        if (!file_exists($lib)) {
-            return;
-        }
-
-        require_once($lib);
-
-        // Fetch video player scripts.
-        $scripts = videolesson_player_scripts();
-
-        // Initialize the output string.
-        $output = '';
-
-        // Add CSS files.
-        foreach ($scripts['cssfiles'] as $cssfile) {
-            $escaped = htmlspecialchars($cssfile, ENT_QUOTES, 'UTF-8');
-            $output .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"{$escaped}\" />";
-        }
-
-        // Add JS files.
-        foreach ($scripts['jsfiles'] as $jsfile) {
-            $escaped = htmlspecialchars($jsfile, ENT_QUOTES, 'UTF-8');
-            $output .= "<script src=\"{$escaped}\"></script>";
-        }
-
-        return $output;
+/**
+ * Filter Video Lesson before standard HTML head.
+ */
+function filter_videolesson_before_standard_html_head() {
+    global $CFG, $PAGE;
+    // Support both old and new filter names for backward compatibility.
+    if (!filter_is_enabled('videolesson') && !filter_is_enabled('videoaws')) {
+        return;
     }
 
-    /**
-     * Filter Video Lesson before standard HTML footer.
-     */
-    function filter_videolesson_before_footer() {
-        global $PAGE;
-        // Support both old and new filter names for backward compatibility.
-        if (!filter_is_enabled('videolesson') && !filter_is_enabled('videoaws')) {
-            return;
-        }
-        $PAGE->requires->js_call_amd('filter_videolesson/player', 'init');
+    $lib = $CFG->dirroot . '/mod/videolesson/lib.php';
+    if (!file_exists($lib)) {
+        return;
     }
+
+    require_once($lib);
+
+    videolesson_register_player_page_requires($PAGE, false, false);
+    return '';
+}
+
+/**
+ * Filter Video Lesson before standard HTML footer.
+ */
+function filter_videolesson_before_footer() {
+    global $PAGE;
+    // Support both old and new filter names for backward compatibility.
+    if (!filter_is_enabled('videolesson') && !filter_is_enabled('videoaws')) {
+        return;
+    }
+    $PAGE->requires->js_call_amd('filter_videolesson/player', 'init');
 }
