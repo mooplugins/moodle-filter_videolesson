@@ -23,26 +23,5 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-if ($CFG->branch < 405) {
-    /**
-     * Display Video Lesson filter
-     *
-     * @package    filter_videolesson
-     * @author     BitKea Technologies LLP
-     * @copyright  2024 BitKea Technologies LLP (https://www.bitkea.com)
-     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-     */
-    class filter_videolesson extends moodle_text_filter {
-        /**
-         *
-         * @param  string $text    HTML content to process
-         * @param  array  $options options passed to the filters
-         * @return string
-         */
-        public function filter($text, array $options = []) {
-            global $CFG;
-            require_once($CFG->dirroot . '/filter/videolesson/locallib.php');
-            return filter_videolesson_generate_player($text, $options);
-        }
-    }
-}
+// For backwards compatibility with Moodle 4.4 and below.
+class_alias(\filter_videolesson\text_filter::class, \filter_videolesson::class);
