@@ -34,7 +34,6 @@ namespace filter_videolesson;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class text_filter extends \core_filters\text_filter {
-
     /**
      *
      * @param  string $text    HTML content to process

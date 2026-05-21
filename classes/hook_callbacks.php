@@ -33,38 +33,19 @@ class hook_callbacks {
     public static function before_standard_head_html_generation(
         \core\hook\output\before_standard_head_html_generation $hook,
     ): void {
-        global $CFG;
-
+        global $CFG, $PAGE;
         // Support both old and new filter names for backward compatibility.
         if (!filter_is_enabled('videolesson') && !filter_is_enabled('videoaws')) {
             return;
         }
-
         $lib = $CFG->dirroot . '/mod/videolesson/lib.php';
         if (!file_exists($lib)) {
             return;
         }
-
         require_once($lib);
-        // Fetch video player scripts.
-        $scripts = videolesson_player_scripts();
-
-        // Initialize the output string.
-        $output = '';
-
-        // Add CSS files.
-        foreach ($scripts['cssfiles'] as $cssfile) {
-            $escaped = htmlspecialchars($cssfile, ENT_QUOTES, 'UTF-8');
-            $output .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"{$escaped}\" />";
-        }
-
-        // Add JS files.
-        foreach ($scripts['jsfiles'] as $jsfile) {
-            $escaped = htmlspecialchars($jsfile, ENT_QUOTES, 'UTF-8');
-            $output .= "<script src=\"{$escaped}\"></script>";
-        }
-
-        $hook->add_html($output);
+        // Queue Plyr/vendor CSS and JS via $PAGE->requires (dedupes; avoids raw <script> with RequireJS).
+        // YouTube/Vimeo APIs: pass true when you know the page needs them; filter path uses footer AMD for the player.
+        videolesson_register_player_page_requires($PAGE, false, false);
     }
 
     /**
@@ -89,5 +70,4 @@ class hook_callbacks {
         // Return null since we're not outputting custom HTML.
         return;
     }
-
 }
