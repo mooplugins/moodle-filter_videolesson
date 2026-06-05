@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2026042400;
+$plugin->version  = 2026052100;
 $plugin->requires = 2023041800;
 $plugin->component = 'filter_videolesson';
 $plugin->release = '1.0.0';
