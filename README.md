@@ -29,8 +29,8 @@ Without this filter enabled, embedded Video Lesson references may not render cor
 
 ## Requirements
 
-- Moodle 4.4.12 or later
-- Video Lesson Activity (`mod_videolesson`) installed and configured
+* Moodle 4.1 or later
+* Video Lesson Activity (`mod_videolesson`) installed and configured
 
 ---
 
@@ -73,6 +73,18 @@ Video Lesson Filter is part of the Video Lesson plugin suite for Moodle.
 ---
 
 ## Release notes
+
+### Version 1.0.1
+
+Maintenance release with Moodle plugins directory review fixes and documentation updates.
+
+Changes:
+
+- Updated README documentation and related plugin links.
+- Clarified that Video Lesson Filter is a companion plugin for `mod_videolesson`.
+- Clarified installation requirements and Moodle compatibility.
+- Updated dependency information for Video Lesson Activity.
+- Included fixes requested during the Moodle plugins directory review process.
 
 ### Version 1.0.0
 
