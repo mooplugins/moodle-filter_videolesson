@@ -50,7 +50,7 @@ Without this filter enabled, embedded Video Lesson references may not render cor
 ## Documentation
 
 For installation, configuration, and usage guides, see:
-https://www.mooplugins.com/docs-category/video-lesson-activity/
+https://www.mooplugins.com/docs-category/video-lesson-activity/?utm_source=github&utm_medium=referral
 
 ---
 
